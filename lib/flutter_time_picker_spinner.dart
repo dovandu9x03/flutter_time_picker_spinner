@@ -79,6 +79,8 @@ class TimePickerSpinner extends StatefulWidget {
   final double? spacing;
   final bool isForce2Digits;
   final TimePickerCallback? onTimeChange;
+  final ScrollPhysics? physicsHour;
+  final ScrollPhysics? physicsMin;
 
   TimePickerSpinner(
       {Key? key,
@@ -94,7 +96,10 @@ class TimePickerSpinner extends StatefulWidget {
       this.alignment,
       this.spacing,
       this.isForce2Digits = false,
-      this.onTimeChange})
+      this.onTimeChange,
+      this.physicsHour,
+      this.physicsMin,
+      })
       : super(key: key);
 
   @override
@@ -241,6 +246,7 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
             isHourScrolling = true;
           },
           () => isHourScrolling = false,
+          widget.physicsHour
         ),
       ),
       spacer(),
@@ -258,6 +264,7 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
             isMinuteScrolling = true;
           },
           () => isMinuteScrolling = false,
+          widget.physicsMin
         ),
       ),
     ];
@@ -312,7 +319,9 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
       bool isScrolling,
       int interval,
       SelectedIndexCallback onUpdateSelectedIndex,
-      VoidCallback onScrollEnd) {
+      VoidCallback onScrollEnd,
+      ScrollPhysics physics
+  ) {
     /// wrapping the spinner with stack and add container above it when it's scrolling
     /// this thing is to prevent an error causing by some weird stuff like this
     /// flutter: Another exception was thrown: 'package:flutter/src/widgets/scrollable.dart': Failed assertion: line 469 pos 12: '_hold == null || _drag == null': is not true.
@@ -351,6 +360,7 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
         return true;
       },
       child: ListView.builder(
+        physics: physics ?? AlwaysScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           String text = '';
           if (isLoop(max)) {
