@@ -82,6 +82,7 @@ class TimePickerSpinner extends StatefulWidget {
   final ScrollPhysics? physicsHour;
   final ScrollPhysics? physicsMin;
   final ScrollPhysics? physicsSecond;
+  final bool? isLoop;
 
   TimePickerSpinner(
       {Key? key,
@@ -101,6 +102,7 @@ class TimePickerSpinner extends StatefulWidget {
       this.physicsHour,
       this.physicsMin,
       this.physicsSecond,
+      this.isLoop = true,
       })
       : super(key: key);
 
@@ -187,7 +189,7 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
   }
 
   bool isLoop(int value) {
-    return value > 10;
+    return widget.isLoop ?? value > 10;
   }
 
   DateTime getDateTime() {
