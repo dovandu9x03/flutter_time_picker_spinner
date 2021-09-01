@@ -102,7 +102,7 @@ class TimePickerSpinner extends StatefulWidget {
       this.physicsHour,
       this.physicsMin,
       this.physicsSecond,
-      this.isLoop = true,
+      this.isLoop,
       })
       : super(key: key);
 
