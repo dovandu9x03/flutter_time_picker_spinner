@@ -81,6 +81,7 @@ class TimePickerSpinner extends StatefulWidget {
   final TimePickerCallback? onTimeChange;
   final ScrollPhysics? physicsHour;
   final ScrollPhysics? physicsMin;
+  final ScrollPhysics? physicsSecond;
 
   TimePickerSpinner(
       {Key? key,
@@ -99,6 +100,7 @@ class TimePickerSpinner extends StatefulWidget {
       this.onTimeChange,
       this.physicsHour,
       this.physicsMin,
+      this.physicsSecond,
       })
       : super(key: key);
 
@@ -173,12 +175,15 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
     return widget.alignment != null ? widget.alignment : defaultAlignment;
   }
 
-  ScrollPhysics? _getPhysiscHour (){
-     return widget.physicsHour != null ? widget.physicsHour : AlwaysScrollableScrollPhysics();
+  ScrollPhysics _getPhysiscHour (){
+     return  widget.physicsHour ?? ItemScrollPhysics(itemHeight: _getItemHeight());
   }
 
-  ScrollPhysics? _getPhysiscMin (){
-     return widget.physicsMin != null ? widget.physicsMin : AlwaysScrollableScrollPhysics();
+  ScrollPhysics _getPhysiscMin (){
+     return widget.physicsMin ??  ItemScrollPhysics(itemHeight: _getItemHeight());
+  }
+  ScrollPhysics _getPhysiscSecond (){
+     return  widget.physicsSecond ?? ItemScrollPhysics(itemHeight: _getItemHeight());
   }
 
   bool isLoop(int value) {
@@ -272,7 +277,7 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
             isMinuteScrolling = true;
           },
           () => isMinuteScrolling = false,
-          _getPhysiscHourMin()
+          _getPhysiscMin()
         ),
       ),
     ];
@@ -293,6 +298,7 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
             isSecondsScrolling = true;
           },
           () => isSecondsScrolling = false,
+          _getPhysiscSecond()
         ),
       ));
     }
@@ -368,7 +374,7 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
         return true;
       },
       child: ListView.builder(
-        physics: physics,
+        // physics: physics,
         itemBuilder: (context, index) {
           String text = '';
           if (isLoop(max)) {
@@ -397,7 +403,7 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
         },
         controller: controller,
         itemCount: isLoop(max) ? max * 3 : max + 2,
-        physics: ItemScrollPhysics(itemHeight: _getItemHeight()),
+        physics: physics,
         padding: EdgeInsets.zero,
       ),
     );
