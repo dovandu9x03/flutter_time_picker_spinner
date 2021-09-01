@@ -254,7 +254,7 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
             isHourScrolling = true;
           },
           () => isHourScrolling = false,
-          _getPhysiscHour
+          _getPhysiscHour()
         ),
       ),
       spacer(),
@@ -272,7 +272,7 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
             isMinuteScrolling = true;
           },
           () => isMinuteScrolling = false,
-          _getPhysiscHourMin
+          _getPhysiscHourMin()
         ),
       ),
     ];
