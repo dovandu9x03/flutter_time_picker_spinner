@@ -173,6 +173,14 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
     return widget.alignment != null ? widget.alignment : defaultAlignment;
   }
 
+  ScrollPhysics? _getPhysiscHour (){
+     return widget.physicsHour != null ? widget.physicsHour : AlwaysScrollableScrollPhysics();
+  }
+
+  ScrollPhysics? _getPhysiscMin (){
+     return widget.physicsMin != null ? widget.physicsMin : AlwaysScrollableScrollPhysics();
+  }
+
   bool isLoop(int value) {
     return value > 10;
   }
@@ -246,7 +254,7 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
             isHourScrolling = true;
           },
           () => isHourScrolling = false,
-          widget.physicsHour
+          _getPhysiscHour
         ),
       ),
       spacer(),
@@ -264,7 +272,7 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
             isMinuteScrolling = true;
           },
           () => isMinuteScrolling = false,
-          widget.physicsMin
+          _getPhysiscHourMin
         ),
       ),
     ];
