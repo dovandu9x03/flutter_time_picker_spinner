@@ -368,7 +368,7 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
         return true;
       },
       child: ListView.builder(
-        physics: physics ?? AlwaysScrollableScrollPhysics(),
+        physics: physics,
         itemBuilder: (context, index) {
           String text = '';
           if (isLoop(max)) {
